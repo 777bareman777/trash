@@ -10,7 +10,7 @@ class GameObject
         // 초기 위치와 이동거리 설정
         GameObject(int startX,int startY, int distance)
         : x(startX),y(startY) { this->distance=distance; }
-        ~GameObject() {};
+        virtual ~GameObject() {};
         
         // 이동한  후 새로윈 위치로, x,y 변경
         virtual void move()=0;
@@ -35,7 +35,7 @@ class Human : public GameObject
         // 다음과 같이 생성자를 만들어줌.
         Human(int startX, int startY) 
         : GameObject(startX,startY,1) {}
-        ~Human() {};
+        virtual ~Human() {};
 
         virtual void move();
         virtual bool move_check(int input);
@@ -50,7 +50,7 @@ class Monster : public GameObject
         // 다음과 같이 생성자를 만들어줌.
         Monster(int startX, int startY) 
         : GameObject(startX,startY,2) {}
-        ~Monster() {};
+        virtual ~Monster() {};
 
         virtual void move();
         virtual bool move_check(int input);
@@ -68,7 +68,7 @@ class Food : public GameObject
         // 다음과 같이 생성자를 만들어줌.
         Food(int startX, int startY) 
         : GameObject(startX,startY,1), count1(0),count2(0) {}
-        ~Food() {};
+        virtual ~Food() {};
 
         virtual void move();
         virtual bool move_check(int input);
