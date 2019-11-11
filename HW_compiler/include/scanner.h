@@ -48,81 +48,82 @@ typedef enum _clangOperationIndex
 	_POSTFIX_INCREMENT=50, 	// 후위 증가
 	_POSTFIX_DECREMENT=51,		// 후위 감소
 	_FUNCTION_CALL=52,			// 함수 호출
-	_DOT=53,					// 구조체/유니온 접근자
-	_ARROW=54,					// 구조체/유니온 포인터 접근자
-	_COMPOUND_LITERAL=55,		// 복합 리터럴
+	_ARRAY_SUBSCRIPTING=53,		// 배열 첨자
+	_DOT=54,					// 구조체/유니온 접근자
+	_ARROW=55,					// 구조체/유니온 포인터 접근자
+	_COMPOUND_LITERAL=56,		// 복합 리터럴
 
 	// 우선순위 2, 오른쪽에서 왼쪽
-	_PREFIX_INCREMENT=56,		// 전위 증가
-	_PREFIX_DECREMENT=57,		// 전위 감소
-	_UNARY_PLUS=58,			// 단항 덧셈(양의 부호)
-	_UNARY_MINUS=59,			// 단항 뺄셈(음의 부호)
-	_LOGICAL_NOT=60,			// 논리 NOT
-	_BITWISE_NOT=61,			// 비트 NOT
-	_TYPE_CAST=62,				// 타입 캐스팅
-	_INDIRECTION=63,			// 포인터 역참조
-	_ADDRESS_OF=64,			// 주소 연산자
-	_SIZE_OF=65,				// 자료형의 크기
-	_ALIGNO_OF=66,				// Aligment requirement
+	_PREFIX_INCREMENT=57,		// 전위 증가
+	_PREFIX_DECREMENT=58,		// 전위 감소
+	_UNARY_PLUS=59,			// 단항 덧셈(양의 부호)
+	_UNARY_MINUS=60,			// 단항 뺄셈(음의 부호)
+	_LOGICAL_NOT=61,			// 논리 NOT
+	_BITWISE_NOT=62,			// 비트 NOT
+	_TYPE_CAST=63,				// 타입 캐스팅
+	_INDIRECTION=64,			// 포인터 역참조
+	_ADDRESS_OF=65,			// 주소 연산자
+	_SIZE_OF=66,				// 자료형의 크기
+	_ALIGNO_OF=67,				// Aligment requirement
 
 	// 우선순위 3, 왼쪽에서 오른쪽
-	_MULTIPLICATION=67,		// 곱하기
-	_DIVISION=68,				// 나눗셈
-	_REMAINDER=69,				// 나머지연산자
+	_MULTIPLICATION=68,		// 곱하기
+	_DIVISION=69,				// 나눗셈
+	_REMAINDER=70,				// 나머지연산자
 
 	// 우선순위 4, 왼쪽에서 오른쪽
-	_ADDITION=70,				// 덧셈	
-	_SUBTRACTION=71,			// 뺄셈
+	_ADDITION=71,				// 덧셈	
+	_SUBTRACTION=72,			// 뺄셈
 
 	// 우선순위 5, 왼쪽에서 오른쪽
-	_BITWISE_LEFT_SHIFT=72,	// 비트를 왼쪽으로 시프트
-	_BITWISE_RIGHT_SHIFT=73,	// 비트를 오른쪽으로 시프트
+	_BITWISE_LEFT_SHIFT=73,	// 비트를 왼쪽으로 시프트
+	_BITWISE_RIGHT_SHIFT=74,	// 비트를 오른쪽으로 시프트
 	
 	// 우선순위 6, 왼쪽에서 오른쪽
-	_LESS=74,					// 작음, <
-	_LSEE_EQUAL=75,			// 작거나 같음, <=
-	_GREATER=76,				// 큼, >
-	_GREATER_EQUAL=77,			// 크거나 같음,	 >=
+	_LESS=75,					// 작음, <
+	_LSEE_EQUAL=76,			// 작거나 같음, <=
+	_GREATER=77,				// 큼, >
+	_GREATER_EQUAL=78,			// 크거나 같음,	 >=
 
 	// 우선순위 7, 왼쪽에서 오른쪽
-	_EQUAL_EQUAL=78,			// 같음, ==
-	_EXCLAM_EQUAL=79,			// 다름, !=
+	_EQUAL_EQUAL=79,			// 같음, ==
+	_EXCLAM_EQUAL=80,			// 다름, !=
 
 	// 우선순위 8, 왼쪽에서 오른쪽
-	_BITWISE_AND=80,			// 비트 AND
+	_BITWISE_AND=81,			// 비트 AND
 	
 	// 우선순위 9, 왼쪽에서 오른쪽
-	_BITWISE_XOR=81,			// 비트 XOR
+	_BITWISE_XOR=82,			// 비트 XOR
 
 	// 우선순위 10, 왼쪽에서 오른쪽
-	_BITWISE_OR=82,			// 비트 OR
+	_BITWISE_OR=83,			// 비트 OR
 
 	// 우선순위 11, 왼쪽에서 오른쪽
-	_LOGICAL_AND=83,			// 논리 AND
+	_LOGICAL_AND=84,			// 논리 AND
 
 	// 우선순위 12, 왼쪽에서 오른쪽
-	_LOGICAL_OR=84,			// 논리 OR
+	_LOGICAL_OR=85,			// 논리 OR
 
 	// 우선순위 13, 오른쪽에서 왼쪽
-	_TERNARY_CONDITIONAL=85,	// 삼항 연산자, ?:
+	_TERNARY_CONDITIONAL=86,	// 삼항 연산자, ?:
 	
 	// 우선순위 14, 오른쪽에서 왼쪽
-	_SIMPLE_ASSIGNMENT=86,					// 할당,대입
-	_ASSIGNMENT_BY_SUN=87,					// 덧셈 후 할당
-	_ASSIGNMENT_BY_DIFFERENCE=88,			// 뺼셈 후 할당
-	_ASSIGNMENT_BY_PRODUCT=89,				// 곱셈 후 할당
-	_ASSIGNMENT_BY_QUOTIENT=90,			// 나눗셈 후 할당
-	_ASSIGNMENT_BY_REMAINDER=91,			// 나머지 연산 후 할당
-	_ASSIGNMENT_BY_BITWISE_LEFT_SHIFT=92, 	// 비트를 왼쪽으로 시프트한 후 할당
-	_ASSIGNMENT_BY_BITWISE_RIGHT_SHIFT=93,	// 비트를 오른쪽으로 시프트한 후 할당
-	_ASSIGNMENT_BY_BITWISE_AND=94,			// 비트 AND 연산 후 할당
-	_ASSIGNMENT_BY_BITWISE_XOR=95,			// 비트 XOR 연산 후 할당
-	_ASSIGNMENT_BY_BITWISE_OR=96,			// 비트 OR 연산 후 할당
+	_SIMPLE_ASSIGNMENT=87,					// 할당,대입
+	_ASSIGNMENT_BY_SUN=88,					// 덧셈 후 할당
+	_ASSIGNMENT_BY_DIFFERENCE=89,			// 뺼셈 후 할당
+	_ASSIGNMENT_BY_PRODUCT=90,				// 곱셈 후 할당
+	_ASSIGNMENT_BY_QUOTIENT=91,			// 나눗셈 후 할당
+	_ASSIGNMENT_BY_REMAINDER=92,			// 나머지 연산 후 할당
+	_ASSIGNMENT_BY_BITWISE_LEFT_SHIFT=93, 	// 비트를 왼쪽으로 시프트한 후 할당
+	_ASSIGNMENT_BY_BITWISE_RIGHT_SHIFT=94,	// 비트를 오른쪽으로 시프트한 후 할당
+	_ASSIGNMENT_BY_BITWISE_AND=95,			// 비트 AND 연산 후 할당
+	_ASSIGNMENT_BY_BITWISE_XOR=96,			// 비트 XOR 연산 후 할당
+	_ASSIGNMENT_BY_BITWISE_OR=97,			// 비트 OR 연산 후 할당
 
 	// 우선순위 15, 왼쪽에서 오른쪽
-	_COMMA=97,								// 쉼표(콤마) 연산자
+	_COMMA=98,								// 쉼표(콤마) 연산자
 	
-	_ENUM_COUNT_OPERATION=98				//	enum 타입의 갯수 : ENUMCOUNT-50
+	_ENUM_COUNT_OPERATION=99				//	enum 타입의 갯수 : ENUMCOUNT-50
 } ClangOperationIndex;
 
 
@@ -144,12 +145,22 @@ typedef enum _ClangSymbolIndex
 	_IDENTIFIER=120,			// -> 변수 이름, 함수 이름 등...
 								// ex) ([a-zA-Z][a-zA-Z0-9]*)
 	_DIGIT=121,					// -> 숫자([0-9]+(.[0-9]*)?)
-	_ENUM_COUNT_SYMBOL=121		// enum 타입의 갯수 : ENUMCOUNT - 120
+
+	_HEADER_FILE=122,			// 헤더 파일
+
+	_ENUM_COUNT_SYMBOL=123		// enum 타입의 갯수 : ENUMCOUNT - 120
 
 
 
 } ClangSymbolIndex;
 
+typedef enum _ClangEtcIndex
+{
+	_SHARP=140,				// #
+	_INCLUDE=141,			// include
+
+	_ENUM_COUNT_ETC=142
+} ClangEtcIndex;
 
 void init();
 

@@ -1,7 +1,8 @@
 #include <scanner.h>
 #include <unistd.h>
 
-extern Node *tb[MAX_TABLE];
+extern Node *op_table[MAX_TABLE];
+extern Node *sym_table[MAX_TABLE];
 extern char *ClangKeyword[];
 extern char *ClangOperation[];
 extern char *ClangDelimiter[];
@@ -11,16 +12,23 @@ extern char *ClangSymbol[];
 int main(int argc, char *argv[])
 {
 
-	// op table 생성후, 테이블 상태 표시
+	// op table 생성
 	init();
-//	HTBprint_hash(tb);
 
-	// symbol table 생성후, 테이블 상태 표시
+	// symbol table 생성
 	scanner();
-//	HTBprint_hash(tb);
 
-	// 입력된 operation 과 symbol 출력
+
+	// 해시 테이블에 저장된 녀석들 모두 출력
+	printf("****\top table\t****\n\n");
+	HTBprint_hash(op_table);
+	printf("****\tsymbol table\t****\n\n");	
+	HTBprint_hash(sym_table);
+
+	// op table + symobl table 출력
+	// .csv 파일에 입력을 시키고, 그것을 읽어들여서 출력
 	print();
+
 
 	return 0;
 }

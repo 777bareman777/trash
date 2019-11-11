@@ -1,6 +1,7 @@
 #include <scanner.h>
 
-extern Node *tb[MAX_TABLE];
+extern Node *op_table[MAX_TABLE];
+extern Node *sym_table[MAX_TABLE];
 
 char *ClangKeyword[]={"asm", "auto", "break", "case", "char", "const",
 	"continue", "default", "do", "double", "else", "extern",
@@ -31,6 +32,8 @@ char *ClangOperation[]={"++", "--", "()", "[]", ".", "->", "(){}",
 
 char *ClangDelimiter[]={"(",")","{","}","[","]",";"};
 
+char *ClangEtc[]={"#","include"};
+
 char *ClangSymbol[]={"IDENTIFIER","DIGIT"};
 
 
@@ -38,22 +41,28 @@ char *ClangSymbol[]={"IDENTIFIER","DIGIT"};
 // C 프로그래밍의 언어의 키워드, 연산자들을 넣었음.
 void init()
 {
-	HTBinit(tb);
+	HTBinit(op_table);
+	HTBinit(sym_table);
 	for(ClangKeywordIndex i = _ASM ; i<_ENUM_COUNT_KEYWORD ; i++)
 	{
 //		printf("%s -> %d\n",ClangKeyword[i-_ASM],i);
-		HTBadd(tb,ClangKeyword[i-_ASM],i);
+		HTBadd(op_table,ClangKeyword[i-_ASM],i);
 	}
 	for(ClangOperationIndex i = _POSTFIX_INCREMENT ; i<_ENUM_COUNT_OPERATION;i++)
 	{
 //		printf("%s -> %d\n",ClangOperation[i-_POSTFIX_INCREMENT],i);
-		HTBadd(tb,ClangOperation[i-_POSTFIX_INCREMENT],i);
+		HTBadd(op_table,ClangOperation[i-_POSTFIX_INCREMENT],i);
 	}
 	for(ClangDelimiterIndex i = _LEFT_PAREN; i<_ENUM_COUNT_DELIMITER;i++)
 	{
 //		printf("%s -> %d\n",ClangDelimiter[i-_LEFT_PAREN],i);
-		HTBadd(tb,ClangDelimiter[i-_LEFT_PAREN],i);
+		HTBadd(op_table,ClangDelimiter[i-_LEFT_PAREN],i);
 
+	}
+	for(ClangEtcIndex i=_SHARP;i<_ENUM_COUNT_ETC;i++)
+	{
+//      printf("%s -> %d\n",ClangEtc[i-_SHARP],i);
+		HTBadd(op_table,ClangEtc[i-_SHARP],i);
 	}
 }
 
@@ -89,7 +98,7 @@ bool scanner()
 	while(fgets(line,sizeof(line)-1,fp)!=0)
 	{
 		i=0;
-		//printf("line: %s\n",line);
+//		printf("line: %s\n",line);
 		while(line[i] !='\0')
 		{
 			j=0;memset(tmp,0,sizeof(tmp));
@@ -118,25 +127,27 @@ bool scanner()
 
 				}
 
-				Node *node_tmp=HTBsearch(tb,(const char*)tmp);
+				Node *node_tmp=HTBsearch(op_table,(const char*)tmp);
 				// 해시 값이 없다면, 심볼로 판단
 				if(node_tmp == NULL)
 				{
 					//printf("%s 심볼이 존재 하지 않음. 값 삽입\n",tmp);
-					HTBadd(tb,tmp,_IDENTIFIER);
-					node_tmp=HTBsearch(tb,(const char*)tmp);
+
+					// 해시 값이 없다면, 심볼로 판단해서 갑 삽입
+					node_tmp=HTBsearch(sym_table,(const char*)tmp);
+					if(node_tmp==NULL)
+					{
+						HTBadd(sym_table,tmp,_IDENTIFIER);
+						node_tmp=HTBsearch(sym_table,(const char*)tmp);
+					}
 					fprintf(sym,"%s,%d\n",node_tmp->key,node_tmp->value);
-				}
-				// 해시 값이 있지만, 값이 91,92 라면, 심볼로 판단
-				else if(node_tmp->value>=91 && node_tmp->value<=92)
-				{
 
 				}
 				// 그외 나머지는 명령어로 판단
 				else
 				{
-					// 키워드는 값이 1~32까지임.
-					if(node_tmp->value>=1 && node_tmp->value<=32)
+					// 키워드는 값이 1~33까지임.
+					if(node_tmp->value>=_ASM && node_tmp->value<=_ENUM)
 					{
 						fprintf(op,"%s,%d\n",node_tmp->key,node_tmp->value);
 					}
@@ -167,12 +178,18 @@ bool scanner()
 						break;
 					}
 				}
-				Node *node_tmp=HTBsearch(tb,(const char*)tmp);
+				Node *node_tmp=HTBsearch(op_table,(const char*)tmp);
 				if(node_tmp == NULL)
 				{
 					//printf("%s 심볼이 존재 하지 않음. 값 삽입\n",tmp);
-					HTBadd(tb,tmp,_DIGIT);
-					node_tmp=HTBsearch(tb,(const char*)tmp);
+
+					// 해시 값이 없다면, 심볼로 판단해서 갑 삽입
+					node_tmp=HTBsearch(sym_table,(const char*)tmp);
+					if(node_tmp==NULL)
+					{	
+						HTBadd(sym_table,tmp,_DIGIT);
+						node_tmp=HTBsearch(sym_table,(const char*)tmp);
+					}
 					fprintf(sym,"%s,%d\n",node_tmp->key,node_tmp->value);
 				}
 			}
@@ -183,7 +200,7 @@ bool scanner()
 				j=0; memset(tmp,0,sizeof(tmp));
 
 				tmp[j]=line[i];
-				Node *node_tmp=HTBsearch(tb,(const char*)tmp);
+				Node *node_tmp=HTBsearch(op_table,(const char*)tmp);
 
 				// 연산자는 예약어 이므로.
 				// 없으면 공백으로 판단.
@@ -201,7 +218,7 @@ bool scanner()
 				{
 					i++;j++;
 					tmp[j]=line[i];
-					node_tmp=HTBsearch(tb,(const char*)tmp);
+					node_tmp=HTBsearch(op_table,(const char*)tmp);
 					// 연산자는 예약어 이므로
 					// 없으면 그 전까지를 연산자로 판단
 					if(node_tmp==NULL)
@@ -210,7 +227,7 @@ bool scanner()
 						break;
 					}
 				}
-				node_tmp=HTBsearch(tb,(const char*)tmp);
+				node_tmp=HTBsearch(op_table,(const char*)tmp);
 				if(node_tmp==NULL)
 				{
 					// 연산자는 예약어 이기 때문에
@@ -218,7 +235,7 @@ bool scanner()
 				}
 				else
 				{
-					//node_tmp=HTBsearch(tb,(const char*)tmp);
+					//node_tmp=HTBsearch(op_table,(const char*)tmp);
 					fprintf(op,"%s,%d\n",node_tmp->key,node_tmp->value);
 				}
 			}

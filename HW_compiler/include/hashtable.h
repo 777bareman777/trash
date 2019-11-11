@@ -58,7 +58,6 @@ bool HTBdelete(Node *tb[MAX_TABLE],const char *key);
 // 출력 함수
 void HTBprint_hash(Node *tb[MAX_TABLE]);
 
+// unlink 시스템 콜
 int unlink(const char *path);
-
-
 #endif

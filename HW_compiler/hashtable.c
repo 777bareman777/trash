@@ -1,6 +1,8 @@
 #include <hashtable.h>
 
-Node *tb[MAX_TABLE]; // 해시 테이블
+// 해시 테이블
+Node *op_table[MAX_TABLE]; // op 테이블
+Node *sym_table[MAX_TABLE]; // symbol 테이블
 
 // 해시 테이블 초기화 함수
 void HTBinit(Node *tb[MAX_TABLE])
