@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <polynomial.h>
 
+
 // 맨 앞에 값 추가
 poly_ptr polyAddItem(poly_ptr pl, float coef, int expon)
 {
@@ -93,7 +94,7 @@ void WriteListItem(poly_ptr pl)
 	poly_ptr tnode=pl;
 	while( tnode != NULL)
 	{	
-		printf("%.2fx^%d \t",tnode->coef,tnode->expon);
+		printf("%+.2fx^%d \t",tnode->coef,tnode->expon);
 		tnode=tnode->link;
 	}
 	printf("\n");
@@ -118,3 +119,94 @@ float CalculatePolynomial(poly_ptr pl,float x)
 	return sum;
 }
 
+////////////////////////////////////////
+
+// 두 다항식의 가감(덧셈, 뺄셈) ADT
+
+// 노드 생성
+poly_ptr getNode()
+{
+	poly_ptr node;
+	node=(poly_ptr)malloc(sizeof(poly));
+	if(node==NULL)
+	{
+		perror("The memory is full\n");
+		exit(1);
+	}
+	return node;
+}
+
+// 노드 추가
+void append(float coef, int expon, poly_ptr *pptr)
+{
+	poly_ptr temp;
+	temp=getNode();
+	
+	temp->coef=coef;
+	temp->expon=expon;
+	(*pptr)->link=temp;
+	*pptr=temp;
+}
+
+// 노드 삭제
+void erase(poly_ptr *pptr)
+{
+	poly_ptr temp;
+	while(*pptr)
+	{
+		temp=*pptr;
+		*pptr=(*pptr)->link;
+		free(temp);
+	}
+}
+
+poly_ptr poly_add(poly_ptr a, poly_ptr b)
+{
+	poly_ptr front, rear, temp;
+	float sum;
+
+	rear=getNode();
+	front=rear;
+
+	while(a != NULL && b != NULL)
+	{
+		switch(compare(a->expon,b->expon))
+		{
+			case -1: /* ( a->expon < b->expon */
+				append(b->coef,b->expon,&rear);
+				b=b->link;
+				break;
+			case 0: /* a->expon == b->expon */
+				sum=a->coef + b->coef;
+				if(sum)
+					append(sum,a->expon,&rear);
+				a=a->link; b=b->link;
+				break;
+			case 1: /* a->expon > b->expon */
+				append(a->coef,a->expon,&rear);
+				a=a->link;
+				break;
+		}
+	}
+
+	for(; a; a=a->link)
+		append(a->coef,a->expon,&rear);
+	for(; b; b=b->link)
+		append(b->coef,b->expon, &rear);
+	
+	rear->link=NULL;
+	temp=front;
+	front=front->link;
+	free(temp);
+	return front;
+}
+
+int compare(int a, int b)
+{
+	int result=a-b;
+	if(result==0)
+		return 0;
+	else if(result<0)
+		return -1;
+	return 1;
+}
