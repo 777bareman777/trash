@@ -1,0 +1,21 @@
+#include <scanner.h>
+#include <unistd.h>
+
+extern Node *tb[MAX_TABLE];
+extern char *ClangKeyword[];
+extern char *ClangOperation[];
+extern char *ClangDelimiter[];
+extern char *ClangSymbol[];
+
+
+int main(int argc, char *argv[])
+{
+
+	init();
+
+	scanner();
+
+	print();
+
+	return 0;
+}
