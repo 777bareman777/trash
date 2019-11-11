@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <polynomial.h>
+#include <linkedlist_polynomial.h>
 
 
 // 맨 앞에 값 추가
@@ -93,8 +93,9 @@ void WriteListItem(poly_ptr pl)
 {
 	poly_ptr tnode=pl;
 	while( tnode != NULL)
-	{	
-		printf("%+.2fx^%d \t",tnode->coef,tnode->expon);
+	{
+		if(tnode->coef !=0)	
+			printf("%+.2fx^%d \t",tnode->coef,tnode->expon);
 		tnode=tnode->link;
 	}
 	printf("\n");
@@ -160,6 +161,7 @@ void erase(poly_ptr *pptr)
 	}
 }
 
+// 다항식 덧셈 함수
 poly_ptr poly_add(poly_ptr a, poly_ptr b)
 {
 	poly_ptr front, rear, temp;
@@ -201,6 +203,49 @@ poly_ptr poly_add(poly_ptr a, poly_ptr b)
 	return front;
 }
 
+// 다항식 뺄셈 함수
+poly_ptr poly_sub(poly_ptr a, poly_ptr b)
+{
+	poly_ptr front, rear, temp;
+	float sum;
+
+	rear=getNode();
+	front=rear;
+
+	while(a != NULL && b != NULL)
+	{
+		switch(compare(a->expon,b->expon))
+		{
+			case -1: /* ( a->expon < b->expon */
+				append(-(b->coef),b->expon,&rear);
+				b=b->link;
+				break;
+			case 0: /* a->expon == b->expon */
+				sum=a->coef - b->coef;
+				if(sum)
+					append(sum,a->expon,&rear);
+				a=a->link; b=b->link;
+				break;
+			case 1: /* a->expon > b->expon */
+				append(a->coef,a->expon,&rear);
+				a=a->link;
+				break;
+		}
+	}
+
+	for(; a; a=a->link)
+		append(a->coef,a->expon,&rear);
+	for(; b; b=b->link)
+		append(-(b->coef),b->expon, &rear);
+	
+	rear->link=NULL;
+	temp=front;
+	front=front->link;
+	free(temp);
+	return front;
+}
+
+// 지수 비교 함수
 int compare(int a, int b)
 {
 	int result=a-b;

@@ -17,13 +17,20 @@ typedef struct _array_polynomial2
 	int expon;
 } array_polynomial2;
 
-// 다항식의 합 계산 함수
+// 다항식의 덧셈 계산 함수
 void array_poly_add2(array_polynomial2 a[],
 		int sp, int fp, int sq, int fq, int *sr, int *fr);
+
+// 다항식의 뺼셈 게산 함수
+void array_poly_sub2(array_polynomial2 a[],
+        int sp, int fp, int sq, int fq, int *sr, int *fr);
+
 // 다항식의 지수, 계수 추가 함수
 void array_poly_append2(array_polynomial2 a[], int *index ,float coef, int expon);
+
 // 계수들의 값 비교 함수
 int compare2(int a, int b);
+
 // 다항식 출력 함수
 void array_polynomial_print2(array_polynomial2 a[],
 		int sp, int fp, int sq, int fq, int sr, int fr);

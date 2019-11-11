@@ -1,5 +1,5 @@
-#ifndef _POLYNOMIAL_H_
-#define _POLYNOMIAL_H_
+#ifndef _LINKEDLIST_POLYNOMIAL_H_
+#define _LINKEDLIST_POLYNOMIAL_H_
 
 typedef struct _poly *poly_ptr;
 typedef struct _poly {
@@ -31,17 +31,23 @@ float CalculatePolynomial(poly_ptr pl,float x);
 
 //두 다항식의 가감(덧셈, 뺄셈) ADT
 
+// 노드 생성
 poly_ptr getNode();
 
+// 노드 추가
 void append(float coef,int expon, poly_ptr *pptr);
 
+// 노드 삭제
 void erase(poly_ptr *pptr);
 
+// 다항식 덧셈 함수
 poly_ptr poly_add(poly_ptr, poly_ptr b);
 
+// 다항식 뺄셈 함수
+poly_ptr poly_sub(poly_ptr a, poly_ptr b);
+
+// 지수 비교 함수
 int compare(int a,int b);
-
-
 
 #endif
 

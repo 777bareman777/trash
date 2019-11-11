@@ -1,7 +1,7 @@
 #ifndef _ARRAY_POLYNOMIAL1_H
 #define _ARRAY_POLYNOMIAL1_H
 
-#define MAX_DEGREE 101 // 다항식의 최대 차수 + 1
+#define MAX_DEGREE 21 // 다항식의 최대 차수 + 1
 
 // 배열을 이용한 첫번째 방법
 // 다항식의 모든 차수에 대한 계수 값을 배열에 저장
@@ -22,8 +22,13 @@ typedef struct _array_polynomial1
 
 // 다항식의 합 계산 함수
 array_polynomial1 array_poly_add1(array_polynomial1 a, array_polynomial1 b);
+
+// 다항식의 뺄셈 함수
+array_polynomial1 array_poly_sub1(array_polynomial1 a, array_polynomial1 b);
+
 // 계수들의 값 비교 함수
 int compare1(int a, int b);
+
 // 다항식 출력 함수
 void array_polynomial_print1(array_polynomial1 a);
 

@@ -40,6 +40,10 @@
 	- 테스트 결과에 대한 비교(예: 계산의 제한성, 올바른 계산 결과의 여부등)
 	- 데이터 크기에 따른 측정된 실행시간 비교
 
+# 참고자료
 
+https://booolean.tistory.com/308
 
+https://ehrn35.tistory.com/3
 
+https://yoonho-devlog.tistory.com/70
