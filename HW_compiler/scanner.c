@@ -32,7 +32,7 @@ char *ClangOperation[]={"++", "--", "()", "[]", ".", "->", "(){}",
 
 char *ClangDelimiter[]={"(",")","{","}","[","]",";"};
 
-char *ClangEtc[]={"#","include"};
+char *ClangEtc[]={"#","include","headerfile"};
 
 char *ClangSymbol[]={"IDENTIFIER","DIGIT"};
 
@@ -193,7 +193,63 @@ bool scanner()
 					fprintf(sym,"%s,%d\n",node_tmp->key,node_tmp->value);
 				}
 			}
+			// 전처리 판별 조건문
+			else if(line[i]=='#')
+			{
+				j=0; memset(tmp,0,sizeof(tmp)); i++;
 
+				// 다음에 오는 문자가 include 인지 define 인지 판별하는 반복문
+				// 만약에 이러한 문자가 아니면 빠져나옴
+				while(1)
+				{
+					if( (line[i]>='A' && line[i]<='Z') || (line[i]=='_') || (line[i]>='a' && line[i]<='z') || (line[i]>='0' && line[i] <='9') )
+					{
+						tmp[j]=line[i];
+					}
+					else
+					{
+						break;
+					}
+					j++;i++;
+				}
+
+				// 다음에 오는 문자가 include 로 판단
+				if(HTBStrCmp(tmp,ClangEtc[_INCLUDE-_SHARP])==0)
+				{
+
+					j=0; memset(tmp,0,sizeof(tmp)); i++;
+					while(1)
+					{
+						i++;
+						// 공백 문자 패스
+						if(line[i]==' ')
+						{
+							continue;
+						}
+						// 헤더 파일 이름의 시작
+						else if(line[i]=='<')
+						{
+							continue;
+						}
+						// 헤더 파일 이름의 끝
+						else if(line[i]=='>')
+						{
+							break;
+						}
+						tmp[j]=line[i];
+						j++;
+					}
+					
+					Node *node_tmp=HTBsearch(sym_table,(const char*)tmp);
+					// 심볼 테이블에 값이 없으면, 해시 값 넣기
+					if(node_tmp==NULL)
+					{
+						HTBadd(sym_table,tmp,_HEADER_FILE);
+						node_tmp=HTBsearch(sym_table,(const char*)tmp);
+					}
+					fprintf(sym,"%s,%d\n",node_tmp->key,node_tmp->value);
+				}
+			}
 			// 연산자 판별 조건
 			else
 			{

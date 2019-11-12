@@ -146,9 +146,7 @@ typedef enum _ClangSymbolIndex
 								// ex) ([a-zA-Z][a-zA-Z0-9]*)
 	_DIGIT=121,					// -> 숫자([0-9]+(.[0-9]*)?)
 
-	_HEADER_FILE=122,			// 헤더 파일
-
-	_ENUM_COUNT_SYMBOL=123		// enum 타입의 갯수 : ENUMCOUNT - 120
+	_ENUM_COUNT_SYMBOL=122		// enum 타입의 갯수 : ENUMCOUNT - 120
 
 
 
@@ -158,8 +156,9 @@ typedef enum _ClangEtcIndex
 {
 	_SHARP=140,				// #
 	_INCLUDE=141,			// include
+	_HEADER_FILE=142,		// 헤더 파일
 
-	_ENUM_COUNT_ETC=142
+	_ENUM_COUNT_ETC=143
 } ClangEtcIndex;
 
 void init();
