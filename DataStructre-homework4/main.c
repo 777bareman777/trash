@@ -19,5 +19,9 @@ int main(int argc, char *argv[])
 	BT_prefixPrint(root);
 	printf("\n\n");
 
+	printf("level 방식\n");
+	BT_levelPrint(root);
+	printf("\n\n");
+
 	return 0;
 }

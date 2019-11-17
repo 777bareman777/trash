@@ -103,4 +103,9 @@ void BT_postfixPrint(pTree root);
 
 // prefix 방식으로 트리 출력 함수
 void BT_prefixPrint(pTree root);
+
+// level 방식으로 트리 출력 함수
+void BT_levelPrint(pTree root);
+
+
 #endif

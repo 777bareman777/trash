@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <binary_tree.h>
+#include <circle_queue.h>
 
 // node 생성 함수
 pNode BT_createNode(void)
@@ -126,4 +127,20 @@ void BT_prefixPrint(pTree root)
 	printf("%c ",root->value);
 	BT_prefixPrint(root->left);
 	BT_prefixPrint(root->right);
+}
+
+// level 방식으로 트리 출력 함수
+void BT_levelPrint(pTree root)
+{
+	if(root==NULL)
+		return ;
+
+	pQueue queue=QUEUEcreate(100);
+	while(root!=NULL)
+	{
+		printf("%c ",root->value);
+		QUEUEenQueue(queue,root->left);
+		QUEUEenQueue(queue,root->right);
+		root=QUEUEdeQueue(queue);
+	}
 }
