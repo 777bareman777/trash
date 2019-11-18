@@ -1,13 +1,6 @@
 #ifndef _BINARY_TREE_H_
 #define _BINARY_TREE_H_
 
-// reference
-// https://meylady.tistory.com/16
-// https://wkdtjsgur100.github.io/binary-search-tree/
-//
-//
-
-
 
 /*
  * binary tree는 각 노드의 subtree의 2개 이하로 이루어져 있으며, 각 node는
