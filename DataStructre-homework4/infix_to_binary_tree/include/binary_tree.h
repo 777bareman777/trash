@@ -73,20 +73,14 @@ typedef struct _Tree
 	pTree right;
 } Tree,Node;
 
+// tree 해제 함수
+void BT_freeTree(pTree root);
+
+// node 해제 함수
+void BT_freeNode(pNode root);
+
 // node 생성 함수
-pNode BT_createNode(void);
-
-// node 삽입 함수
-pTree BT_insert(pTree root, int value);
-
-// 최소 값을 가진 node 함수 검색 함수
-pNode BT_findMinNode(pNode tree);
-
-// node 삭제 함수
-pTree BT_delete(pTree root, int value);
-
-// node 검색 함수
-pTree BT_search(pTree root, int value);
+pNode BT_createNode(int value);
 
 // infix 방식으로 트리 출력 함수
 void BT_infixPrint(pTree root);

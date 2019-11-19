@@ -1,27 +1,26 @@
 #include <stdio.h>
 #include <infix_to_binary_tree.h>
+#include <huffman_tree.h>
 
 int main(int argc, char *argv[])
 {
 
-	pTree root=NULL;
-	root=createInfixToBinaryTree();
+	while(1)
+	{
+		int i;
+		printf("1번 산술식 이진트리, 2번 호프만 코딩, 3번 프로그램 종료: ");
+		scanf("%d",&i);
 
-	printf("infix 방식\n");
-	BT_infixPrint(root);
-	printf("\n\n");
-
-	printf("postfix 방식\n");	
-	BT_postfixPrint(root);
-	printf("\n\n");
-
-	printf("prefix 방식\n");
-	BT_prefixPrint(root);
-	printf("\n\n");
-
-	printf("level 방식\n");
-	BT_levelPrint(root);
-	printf("\n\n");
-
-	return 0;
+		switch(i)
+		{
+			case 1:
+				test1();
+				break;
+			case 2:
+				test2();
+				break;
+			case 3:
+				return 0;
+		}
+	}
 }

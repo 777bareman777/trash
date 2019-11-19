@@ -25,5 +25,7 @@ char *strInput(void);
 // binary tree로 만듬.
 pTree createInfixToBinaryTree(void);
 
+void test1();
+
 
 #endif

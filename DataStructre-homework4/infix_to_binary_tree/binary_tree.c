@@ -3,8 +3,26 @@
 #include <binary_tree.h>
 #include <circle_queue.h>
 
+// tree 해제 함수
+void BT_freeTree(pTree root)
+{
+	if(root->right != NULL)
+		BT_freeTree(root->right);
+	if(root->left != NULL)
+		BT_freeTree(root->left);
+
+	root->left=NULL;
+	root->right=NULL;
+	BT_freeNode(root);
+}
+// node 해제 함수
+void BT_freeNode(pNode root)
+{
+	free(root);
+}
+
 // node 생성 함수
-pNode BT_createNode(void)
+pNode BT_createNode(int value)
 {
 	pNode node=(pNode)malloc(sizeof(Node));
 	if(!node)
@@ -12,88 +30,11 @@ pNode BT_createNode(void)
 		fprintf(stderr,"메모리가 부족합니다\n");
 		return NULL;
 	}
+	node->value=value;
 	node->left=NULL;
 	node->right=NULL;
 
 	return node;
-}
-
-// node 삽입 함수
-pTree BT_insert(pTree root, int value)
-{
-	// 최초 root 노드 생성
-	if(root==NULL)
-	{
-		root=BT_createNode();
-		if(root)
-			root->value=value;
-		return root;
-	}
-	// root 노드부터 탐색하면서 값 삽입
-	else
-	{
-		if(root->value > value)
-			root->left=BT_insert(root->left,value);
-		else
-			root->right=BT_insert(root->right,value);
-	}
-
-	return root;
-
-}
-
-pNode BT_findMinNode(pNode root)
-{
-	pNode tmpNode=root;
-	while(tmpNode->left != NULL)
-		tmpNode=tmpNode->left;
-	return tmpNode;
-}
-
-// node 삭제 함수
-pTree BT_delete(pTree root, int value)
-{
-	pNode tmpNode=NULL;
-
-	if(root==NULL)
-		return NULL;
-	
-	if(root->value > value)
-		root->left=BT_delete(root->left,value);
-	else if(root->value < value)
-		root->right=BT_delete(root->right,value);
-	else
-	{
-		// child node가 둘 다 있는 경우
-		if(root->right != NULL && root->left !=	NULL)
-		{
-			tmpNode=BT_findMinNode(root->right);
-			root->value=tmpNode->value;
-			root->right=BT_delete(root->right,tmpNode->value);
-		}
-		else
-		{
-			tmpNode=(root->left == NULL) ? root->right : root->left;
-			free(root);
-			return tmpNode;
-		}
-	}
-
-	return root;
-}
-
-// node 검색 함수
-pTree BT_search(pTree root, int value)
-{
-	if(root == NULL)
-		return NULL;
-
-	if(root->value == value)
-		return root;
-	else if(root->value >value)
-		return BT_search(root->left,value);
-	else
-		return BT_search(root->right,value);
 }
 
 // infix 방식으로 트리 출력 함수
@@ -143,4 +84,6 @@ void BT_levelPrint(pTree root)
 		QUEUEenQueue(queue,root->right);
 		root=QUEUEdeQueue(queue);
 	}
+
+	QUEUEfree(queue);
 }

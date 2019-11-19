@@ -1,5 +1,5 @@
 TARGET=program
-OBJS=main.o huffman_tree.o
+OBJS=main.o priority_queue.o huffman_tree.o queue.o
 CC=gcc
 CFLAGS=-I./include -c -Wall -g
 

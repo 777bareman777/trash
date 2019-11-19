@@ -1,5 +1,5 @@
 TARGET=program
-OBJS=main.o binary_tree.o stack.o circle_queue.o infix_to_binary_tree.o 
+OBJS=main.o binary_tree.o stack.o circle_queue.o infix_to_binary_tree.o huffman_tree.o
 CC=gcc
 CFLAGS=-I./include -c -Wall -g
 
@@ -11,4 +11,4 @@ $(TARGET) : $(OBJS)
 	$(CC) $(CFLAGS) $<
 
 clean :
-	rm -rf $(OBJS) $(TARGET)
+	rm -rf $(OBJS) $(TARGET) week*

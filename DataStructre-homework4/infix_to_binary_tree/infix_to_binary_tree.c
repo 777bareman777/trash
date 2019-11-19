@@ -73,8 +73,7 @@ pTree createInfixToBinaryTree(void)
 			// '(' 일때
 			case LEFT_BRACKET:
 				{
-					pTree tmp=BT_createNode();
-					tmp->value=str[i];
+					pTree tmp=BT_createNode(str[i]);
 					STACKpush(operatorStack,tmp);
 				}
 				break;
@@ -90,11 +89,9 @@ pTree createInfixToBinaryTree(void)
 
 						pTree operand2=STACKpop(operandStack);
 						pTree operand1=STACKpop(operandStack);
-
 						cur->left=operand1;
 						cur->right=operand2;
 						STACKpush(operandStack,cur);
-
 					}
 				}
 				break;
@@ -107,15 +104,13 @@ pTree createInfixToBinaryTree(void)
 					// 비어있을 때
 					if(STACKisEmpty(operatorStack))
 					{
-						pTree tmp=BT_createNode();
-						tmp->value=str[i];
+						pTree tmp=BT_createNode(str[i]);
 						STACKpush(operatorStack,tmp);
 					}
 					// 스택에 있는 연산자보다 입력된 연산자 우선순위가 클 때,
 					else if(compare(operatorStack->value[operatorStack->top]->value,str[i])<0)
 					{
-						pTree tmp=BT_createNode();
-						tmp->value=str[i];
+						pTree tmp=BT_createNode(str[i]);
 						STACKpush(operatorStack,tmp);
 					}
 					// 스택에 있는 연산자보다 입력된 연산자
@@ -125,11 +120,8 @@ pTree createInfixToBinaryTree(void)
 						pTree operand2=STACKpop(operandStack);
 						pTree operand1=STACKpop(operandStack);
 						pTree head=STACKpop(operatorStack);
-						
-						pTree tmp=BT_createNode();
-						tmp->value=str[i];
+						pTree tmp=BT_createNode(str[i]);
 						STACKpush(operatorStack,tmp);
-
 						head->left=operand1;
 						head->right=operand2;
 						STACKpush(operandStack,head);
@@ -138,14 +130,11 @@ pTree createInfixToBinaryTree(void)
 				break;
 			default:
 				{
-					pTree tmp=BT_createNode();
-					tmp->value=str[i];
+					pTree tmp=BT_createNode(str[i]);
 					STACKpush(operandStack,tmp);
 				}
 		}
 	}
-
-
 	while( STACKisEmpty(operandStack) != true && STACKisEmpty(operatorStack) != true)
 	{
 		cur=STACKpop(operatorStack);
@@ -159,9 +148,34 @@ pTree createInfixToBinaryTree(void)
 		cur->right=operand2;
 		STACKpush(operandStack,cur);
 	}
-	root=cur;
+	root=STACKpop(operandStack);
 
+	STACKfree(operandStack);
+	STACKfree(operatorStack);
 	free(str);
 	return root;
 }
 
+void test1()
+{
+	pTree root=NULL;
+	root=createInfixToBinaryTree();
+
+	printf("infix 방식\n");
+	BT_infixPrint(root);
+	printf("\n\n");
+
+	printf("postfix 방식\n");	
+	BT_postfixPrint(root);
+	printf("\n\n");
+
+	printf("prefix 방식\n");
+	BT_prefixPrint(root);
+	printf("\n\n");
+
+	printf("level 방식\n");
+	BT_levelPrint(root);
+	printf("\n\n");
+
+	BT_freeTree(root);
+}
