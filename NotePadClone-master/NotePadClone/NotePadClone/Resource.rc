@@ -1,0 +1,144 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "winres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// 한국어(대한민국) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_KOR)
+LANGUAGE LANG_KOREAN, SUBLANG_DEFAULT
+#pragma code_page(949)
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""winres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_MENU1 MENU
+BEGIN
+    POPUP "파일(&F)"
+    BEGIN
+        MENUITEM "새로 만들기(&N)\tCtrl+N",          IDM_FILE_NEW
+        MENUITEM "열기(&O)...\tCtrl+O",           IDM_FILE_LOAD
+        MENUITEM "저장(&S)\tCtrl+S",              IDM_FILE_SAVE
+        MENUITEM "다른 이름으로 저장(&A)...\tCtrl+Shift+S", IDM_FILE_SAVEAS
+        MENUITEM SEPARATOR
+        MENUITEM "끝내기(&X)",                     IDM_FILE_EXIT
+    END
+    POPUP "편집(&E)"
+    BEGIN
+        MENUITEM "실행 취소(&U)\tCtrl+Z",           IDM_EDIT_UNDO
+        MENUITEM SEPARATOR
+        MENUITEM "잘라내기(&T)\tCtrl+X",            IDM_EDIT_CUT
+        MENUITEM "복사(&C)\tCtrl+C",              IDM_EDIT_COPY
+        MENUITEM "붙여넣기(&P)\tCtrl+V",            IDM_EDIT_PASTE
+        MENUITEM "삭제(&L)\tDel",                 IDM_EDIT_DEL
+        MENUITEM SEPARATOR
+        MENUITEM "전체선택(&A)\tCtrl+A",            IDM_EDIT_SELALL
+        MENUITEM "시간/날짜(&D)\\F5",               IDM_EDIT_TIME
+    END
+    POPUP "서식(&O)"
+    BEGIN
+        MENUITEM "자동 줄 바꿈(&W)",                 IDM_FORMAT_AUTOLINE, CHECKED
+        MENUITEM "글꼴(&F)...",                   IDM_FORMAT_FONT
+    END
+    POPUP "보기(&V)"
+    BEGIN
+        POPUP "확대하기/축소하기"
+        BEGIN
+            MENUITEM "확대(&I)\tCtrl+더하기",            IDM_VIEW_ZOOMIN
+            MENUITEM "축소(&O)\tCtrl+빼기",             IDM_VIEW_ZOOMOUT
+            MENUITEM "확대하기/축소하기 기본값 복원\tCtrl+0",    IDM_VIEW_ZOOMINOUTRESTORE
+        END
+        MENUITEM "상태 표시줄(&S)",                  IDM_VIEW_STATUSBAR, CHECKED
+    END
+    POPUP "도움말"
+    BEGIN
+        MENUITEM "프로그램 정보(&A)",                 IDM_HELP_ABOUT
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Accelerator
+//
+
+IDR_ACCELERATOR1 ACCELERATORS
+BEGIN
+    "C",            IDM_EDIT_COPY,          VIRTKEY, CONTROL, NOINVERT
+    "X",            IDM_EDIT_CUT,           VIRTKEY, CONTROL, NOINVERT
+    VK_DELETE,      IDM_EDIT_DEL,           VIRTKEY, NOINVERT
+    "A",            IDM_EDIT_SELALL,        VIRTKEY, CONTROL, NOINVERT
+    VK_F5,          IDM_EDIT_TIME,          VIRTKEY, NOINVERT
+    "Z",            IDM_EDIT_UNDO,          VIRTKEY, CONTROL, NOINVERT
+    "O",            DM_FILE_LOAD,           VIRTKEY, CONTROL, NOINVERT
+    "N",            DM_FILE_NEW,            VIRTKEY, CONTROL, NOINVERT
+    "S",            IDM_FILE_SAVE,          VIRTKEY, CONTROL, NOINVERT
+    "S",            DM_FILE_SAVEAS,         VIRTKEY, SHIFT, CONTROL, NOINVERT
+    "V",            IDM_EDIT_PASTE,         VIRTKEY, CONTROL, NOINVERT
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE
+BEGIN
+    IDS_APP_TITLE           "제목 없음.txt"
+    IDS_NOTEPADCLONE        "NotePadClone"
+END
+
+#endif    // 한국어(대한민국) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+
